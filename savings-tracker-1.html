@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1B4332">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Savings">
+<link rel="manifest" href="data:application/manifest+json;base64,eyJuYW1lIjoiU2F2aW5ncyBUcmFja2VyIiwic2hvcnRfbmFtZSI6IlNhdmluZ3MiLCJkZXNjcmlwdGlvbiI6IlRyYWNrIHdlZWtseSBzYXZpbmdzIGdvYWxzIHdpdGggY2hlY2thYmxlIGVudmVsb3BlIGNhcmRzLiIsInN0YXJ0X3VybCI6Ii4iLCJkaXNwbGF5Ijoic3RhbmRhbG9uZSIsImJhY2tncm91bmRfY29sb3IiOiIjMUI0MzMyIiwidGhlbWVfY29sb3IiOiIjMUI0MzMyIiwiaWNvbnMiOlt7InNyYyI6ImRhdGE6aW1hZ2Uvc3ZnK3htbCwlM0NzdmcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB2aWV3Qm94PScwIDAgNTEyIDUxMiclM0UlM0NyZWN0IHdpZHRoPSc1MTInIGhlaWdodD0nNTEyJyByeD0nOTYnIGZpbGw9JyUyMzFCNDMzMicvJTNFJTNDdGV4dCB4PScyNTYnIHk9JzMzMCcgZm9udC1zaXplPScyNjAnIHRleHQtYW5jaG9yPSdtaWRkbGUnIGZpbGw9JyUyM0Q5QTk0RCcgZm9udC1mYW1pbHk9J0dlb3JnaWEsc2VyaWYnJTNFJTI0JTNDL3RleHQlM0UlM0Mvc3ZnJTNFIiwic2l6ZXMiOiIxOTJ4MTkyIiwidHlwZSI6ImltYWdlL3N2Zyt4bWwiLCJwdXJwb3NlIjoiYW55IG1hc2thYmxlIn0seyJzcmMiOiJkYXRhOmltYWdlL3N2Zyt4bWwsJTNDc3ZnIHhtbG5zPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2Zycgdmlld0JveD0nMCAwIDUxMiA1MTInJTNFJTNDcmVjdCB3aWR0aD0nNTEyJyBoZWlnaHQ9JzUxMicgcng9Jzk2JyBmaWxsPSclMjMxQjQzMzInLyUzRSUzQ3RleHQgeD0nMjU2JyB5PSczMzAnIGZvbnQtc2l6ZT0nMjYwJyB0ZXh0LWFuY2hvcj0nbWlkZGxlJyBmaWxsPSclMjNEOUE5NEQnIGZvbnQtZmFtaWx5PSdHZW9yZ2lhLHNlcmlmJyUzRSUyNCUzQy90ZXh0JTNFJTNDL3N2ZyUzRSIsInNpemVzIjoiNTEyeDUxMiIsInR5cGUiOiJpbWFnZS9zdmcreG1sIiwicHVycG9zZSI6ImFueSBtYXNrYWJsZSJ9XX0K">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='96' fill='%231B4332'/%3E%3Ctext x='256' y='330' font-size='260' text-anchor='middle' fill='%23D9A94D' font-family='Georgia,serif'%3E%24%3C/text%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='96' fill='%231B4332'/%3E%3Ctext x='256' y='330' font-size='260' text-anchor='middle' fill='%23D9A94D' font-family='Georgia,serif'%3E%24%3C/text%3E%3C/svg%3E">
+<title>Savings Tracker</title>
+<style>
+  :root{
+    --ink:#1B2A38;
+    --paper:#EFE7D3;
+    --paper-2:#E4DAC0;
+    --ledger:#1B4332;
+    --ledger-2:#123024;
+    --gold:#B8862E;
+    --gold-light:#D9A94D;
+    --done:#2E6B4F;
+    --danger:#8A3324;
+    --overdue:#B23B2E;
+    --shadow: rgba(0,0,0,.18);
+    color-scheme: light;
+    box-sizing:border-box;
+    padding-top: env(safe-area-inset-top,0px);
+    padding-bottom: env(safe-area-inset-bottom,0px);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ink:#EDE6D3; --paper:#20241F; --paper-2:#2A2F27; --ledger:#0F241C;
+      --ledger-2:#0A1913; --gold:#D9A94D; --gold-light:#E8C57A; --done:#4F9C77;
+      --danger:#D97757; --overdue:#E0725C; --shadow: rgba(0,0,0,.5);
+    }
+  }
+  :root[data-theme="dark"]{
+    --ink:#EDE6D3; --paper:#20241F; --paper-2:#2A2F27; --ledger:#0F241C;
+    --ledger-2:#0A1913; --gold:#D9A94D; --gold-light:#E8C57A; --done:#4F9C77;
+    --danger:#D97757; --overdue:#E0725C; --shadow: rgba(0,0,0,.5);
+  }
+  *{box-sizing:border-box;}
+  html,body{height:100%;}
+  body{
+    margin:0; background:var(--ledger); color:var(--ink);
+    font-family: "Iowan Old Style","Georgia","Times New Roman",serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{ max-width:780px; margin:0 auto; padding:28px 20px 60px; }
+  .top{ display:flex; justify-content:space-between; align-items:flex-start; gap:12px; flex-wrap:wrap; }
+  h1{ font-size:1.6rem; font-weight:600; letter-spacing:.01em; color:var(--gold-light); margin:0 0 4px; }
+  .sub{ color:var(--paper); opacity:.75; font-size:.92rem; margin:0 0 20px; }
+  .toolbar{ display:flex; gap:8px; }
+  .icon-btn{
+    background:transparent; border:1px solid var(--paper); color:var(--paper);
+    opacity:.8; border-radius:4px; padding:6px 10px; font-size:.85rem; cursor:pointer;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  }
+  .icon-btn:hover{opacity:1;}
+  .panel{ background:var(--paper); border-radius:6px; padding:20px; box-shadow:0 6px 18px var(--shadow); margin-bottom:22px; }
+  .setup-row{ display:flex; gap:14px; flex-wrap:wrap; }
+  .field{ flex:1 1 140px; display:flex; flex-direction:column; gap:6px; }
+  label{ font-size:.78rem; color:var(--ink); opacity:.7; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+  input[type=number], input[type=date], select{
+    font-family: "Courier New", monospace; font-size:1rem; padding:9px 10px;
+    border:1px solid var(--paper-2); border-radius:4px; background:var(--paper-2); color:var(--ink); width:100%;
+  }
+  input:focus{ outline:2px solid var(--gold); outline-offset:1px; }
+  button{ font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; font-size:.9rem; font-weight:600; border:none; border-radius:4px; padding:10px 18px; cursor:pointer; }
+  .btn-primary{ background:var(--gold); color:var(--ledger-2); margin-top:20px; }
+  .btn-primary:hover{ background:var(--gold-light); }
+  .btn-ghost{ background:transparent; color:var(--paper); border:1px solid var(--paper); opacity:.75; }
+  .btn-ghost:hover{ opacity:1; }
+  .stats{ display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+  .stat .num{ font-family:"Courier New",monospace; font-size:1.35rem; font-weight:700; color:var(--gold-light); }
+  .stat .lbl{ font-size:.73rem; color:var(--paper); opacity:.7; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+  .bar-track{ height:10px; background:var(--paper-2); border-radius:6px; overflow:hidden; margin:14px 0 4px; }
+  .bar-fill{ height:100%; background:linear-gradient(90deg,var(--gold),var(--gold-light)); width:0%; transition:width .4s ease; }
+  .badges{ display:flex; gap:8px; margin-top:14px; flex-wrap:wrap; }
+  .badge{
+    font-size:.72rem; padding:5px 10px; border-radius:20px; border:1px solid var(--paper-2);
+    color:var(--paper); opacity:.4; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  }
+  .badge.hit{ opacity:1; background:var(--gold); color:var(--ledger-2); border-color:var(--gold); font-weight:700; }
+  .streak{ margin-top:10px; font-size:.82rem; color:var(--paper); opacity:.85; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+  .grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(120px,1fr)); gap:12px; }
+  .envelope{
+    position:relative; background:var(--paper); border-radius:4px; padding:14px 10px 12px; cursor:pointer;
+    box-shadow:0 3px 8px var(--shadow); transition:transform .15s ease; -webkit-tap-highlight-color:transparent; user-select:none;
+    border:2px solid transparent;
+  }
+  .envelope:hover{ transform:translateY(-2px); }
+  .envelope::before{
+    content:""; display:block; height:0; width:0; margin:0 auto 6px;
+    border-left:32px solid transparent; border-right:32px solid transparent; border-top:20px solid var(--paper-2);
+  }
+  .envelope.done::before{ border-top-color:var(--done); }
+  .envelope.done{ background:var(--paper-2); }
+  .envelope.overdue{ border-color:var(--overdue); }
+  .env-week{ font-size:.72rem; text-align:center; opacity:.65; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; margin-bottom:2px; }
+  .env-date{ font-size:.66rem; text-align:center; opacity:.5; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; margin-bottom:2px; }
+  .env-amt{ font-family:"Courier New",monospace; font-size:1.02rem; font-weight:700; text-align:center; }
+  .envelope.done .env-amt{ color:var(--done); }
+  .check{ position:absolute; top:6px; right:8px; font-size:.85rem; color:var(--done); opacity:0; }
+  .envelope.done .check{ opacity:1; }
+  .note-btn{
+    position:absolute; top:4px; left:6px; font-size:.75rem; background:none; border:none; padding:2px;
+    cursor:pointer; opacity:.35; color:var(--ink);
+  }
+  .note-btn.has-note{ opacity:1; color:var(--gold); }
+  .empty{ color:var(--paper); opacity:.7; text-align:center; padding:30px 0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; font-size:.9rem; }
+  .footer-row{ display:flex; justify-content:space-between; align-items:center; margin-top:18px; flex-wrap:wrap; gap:8px; }
+  .err{ color:var(--danger); font-size:.82rem; margin-top:8px; display:none; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+  .confetti{ position:fixed; top:-10px; width:8px; height:14px; opacity:.9; pointer-events:none; z-index:999; animation:fall linear forwards; }
+  @keyframes fall{ to{ transform:translateY(105vh) rotate(360deg); opacity:.2; } }
+  #importInput{ display:none; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div>
+      <h1>Savings Tracker</h1>
+      <p class="sub">Set a goal, split it into envelopes, and check them off as you save.</p>
+    </div>
+    <div class="toolbar">
+      <button class="icon-btn" id="themeToggle">Theme</button>
+      <button class="icon-btn" id="exportBtn">Export</button>
+      <button class="icon-btn" id="importBtn">Import</button>
+      <input type="file" id="importInput" accept="application/json">
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="setup-row">
+      <div class="field"><label for="goal">Total goal</label><input type="number" id="goal" min="1" step="0.01" placeholder="7500"></div>
+      <div class="field"><label for="currency">Currency</label>
+        <select id="currency">
+          <option value="USD">USD ($)</option>
+          <option value="EUR">EUR (€)</option>
+          <option value="GBP">GBP (£)</option>
+          <option value="CAD">CAD ($)</option>
+          <option value="AUD">AUD ($)</option>
+          <option value="JPY">JPY (¥)</option>
+          <option value="INR">INR (₹)</option>
+          <option value="MXN">MXN ($)</option>
+          <option value="CHF">CHF</option>
+          <option value="BRL">BRL (R$)</option>
+        </select>
+      </div>
+      <div class="field"><label for="periodType">Period</label>
+        <select id="periodType">
+          <option value="week">Weekly</option>
+          <option value="month">Monthly</option>
+        </select>
+      </div>
+      <div class="field"><label for="weeks" id="weeksLabel">Total weeks</label><input type="number" id="weeks" min="1" step="1" placeholder="50"></div>
+      <div class="field"><label for="perWeek" id="perWeekLabel">Envelopes/week</label><input type="number" id="perWeek" min="1" step="1" placeholder="2"></div>
+      <div class="field"><label for="startDate">Start date (optional)</label><input type="date" id="startDate"></div>
+    </div>
+    <button class="btn-primary" id="setGoal">Set goal</button>
+    <div class="err" id="err">Enter a goal, period count, and envelopes/period greater than zero.</div>
+  </div>
+
+  <div class="panel" id="statsPanel" style="display:none;">
+    <div class="stats">
+      <div class="stat"><div class="num" id="savedAmt">$0</div><div class="lbl">Saved so far</div></div>
+      <div class="stat"><div class="num" id="weeklyAmt">$0</div><div class="lbl" id="weeklyLbl">Per week</div></div>
+      <div class="stat"><div class="num" id="envAmtStat">$0</div><div class="lbl">Per envelope</div></div>
+      <div class="stat"><div class="num" id="remainingAmt">$0</div><div class="lbl">Remaining</div></div>
+      <div class="stat"><div class="num" id="overdueStat">0</div><div class="lbl">Overdue</div></div>
+    </div>
+    <div class="bar-track"><div class="bar-fill" id="barFill"></div></div>
+    <div class="badges" id="badges"></div>
+    <div class="streak" id="streakLine"></div>
+  </div>
+
+  <div class="panel">
+    <div id="grid" class="grid"></div>
+    <div class="empty" id="emptyMsg">Set a goal and week count above to generate your envelopes.</div>
+    <div class="footer-row" id="footerRow" style="display:none;">
+      <span class="lbl" style="font-size:.78rem;opacity:.7;color:var(--paper);font-family:-apple-system,sans-serif;">Tap to check off · pencil icon for a note.</span>
+      <button class="btn-ghost" id="resetBtn">Reset progress</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var STORE_KEY = 'savings-tracker-state-v3';
+  var THEME_KEY = 'savings-tracker-theme';
+  var state = { goal:null, weeks:null, perWeek:null, checked:{}, notes:{}, startDate:'', currency:'USD', periodType:'week', celebrated:false };
+
+  function loadState(){
+    try{
+      var raw = localStorage.getItem(STORE_KEY);
+      if(raw){ var p = JSON.parse(raw); if(p && typeof p==='object'){ state = Object.assign(state,p); } }
+    }catch(e){}
+  }
+  function saveState(){
+    try{ localStorage.setItem(STORE_KEY, JSON.stringify(state)); }catch(e){}
+  }
+  function fmt(n){
+    try{
+      return new Intl.NumberFormat(undefined, { style:'currency', currency: state.currency || 'USD' }).format(n);
+    }catch(e){
+      return '$' + n.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
+    }
+  }
+  function fmtDate(d){ return d.toLocaleDateString(undefined,{month:'short',day:'numeric'}); }
+
+  var goalInput=document.getElementById('goal'), weeksInput=document.getElementById('weeks'),
+      perWeekInput=document.getElementById('perWeek'), startDateInput=document.getElementById('startDate'),
+      currencyInput=document.getElementById('currency'), periodTypeInput=document.getElementById('periodType'),
+      weeksLabel=document.getElementById('weeksLabel'), perWeekLabel=document.getElementById('perWeekLabel'),
+      weeklyLbl=document.getElementById('weeklyLbl'),
+      setGoalBtn=document.getElementById('setGoal'), errEl=document.getElementById('err'),
+      grid=document.getElementById('grid'), emptyMsg=document.getElementById('emptyMsg'),
+      footerRow=document.getElementById('footerRow'), statsPanel=document.getElementById('statsPanel'),
+      savedAmt=document.getElementById('savedAmt'), weeklyAmt=document.getElementById('weeklyAmt'),
+      envAmtStat=document.getElementById('envAmtStat'), remainingAmt=document.getElementById('remainingAmt'),
+      overdueStat=document.getElementById('overdueStat'), barFill=document.getElementById('barFill'),
+      badgesEl=document.getElementById('badges'), streakLine=document.getElementById('streakLine'),
+      resetBtn=document.getElementById('resetBtn'), themeToggle=document.getElementById('themeToggle'),
+      exportBtn=document.getElementById('exportBtn'), importBtn=document.getElementById('importBtn'),
+      importInput=document.getElementById('importInput');
+
+  // theme
+  try{
+    var savedTheme = localStorage.getItem(THEME_KEY);
+    if(savedTheme){ document.documentElement.setAttribute('data-theme', savedTheme); }
+  }catch(e){}
+  themeToggle.addEventListener('click', function(){
+    var cur = document.documentElement.getAttribute('data-theme');
+    var next = cur === 'dark' ? 'light' : (cur === 'light' ? 'dark' : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'light' : 'dark'));
+    document.documentElement.setAttribute('data-theme', next);
+    try{ localStorage.setItem(THEME_KEY, next); }catch(e){}
+  });
+
+  function applyPeriodLabels(pt){
+    var word = pt === 'month' ? 'month' : 'week';
+    weeksLabel.textContent = 'Total ' + word + 's';
+    perWeekLabel.textContent = 'Envelopes/' + word;
+    weeklyLbl.textContent = 'Per ' + word;
+    weeksInput.placeholder = pt === 'month' ? '12' : '50';
+  }
+  periodTypeInput.addEventListener('change', function(){ applyPeriodLabels(periodTypeInput.value); });
+
+  function weekDate(w){
+    if(!state.startDate) return null;
+    var base = new Date(state.startDate + 'T00:00:00');
+    if(state.periodType === 'month'){ base.setMonth(base.getMonth() + (w-1)); }
+    else { base.setDate(base.getDate() + (w-1)*7); }
+    return base;
+  }
+
+  function launchConfetti(){
+    var colors = ['#B8862E','#D9A94D','#2E6B4F','#EFE7D3'];
+    for(var i=0;i<40;i++){
+      (function(){
+        var el = document.createElement('div');
+        el.className = 'confetti';
+        el.style.left = (Math.random()*100) + 'vw';
+        el.style.background = colors[Math.floor(Math.random()*colors.length)];
+        el.style.animationDuration = (2 + Math.random()*1.5) + 's';
+        document.body.appendChild(el);
+        setTimeout(function(){ el.remove(); }, 4000);
+      })();
+    }
+  }
+
+  function render(){
+    if(!state.goal || !state.weeks || !state.perWeek){
+      grid.innerHTML=''; emptyMsg.style.display='block'; footerRow.style.display='none'; statsPanel.style.display='none';
+      return;
+    }
+    emptyMsg.style.display='none'; footerRow.style.display='flex'; statsPanel.style.display='block';
+
+    var weeklyTarget = state.goal/state.weeks;
+    var envAmt = weeklyTarget/state.perWeek;
+    goalInput.value=state.goal; weeksInput.value=state.weeks; perWeekInput.value=state.perWeek;
+    startDateInput.value = state.startDate || '';
+    currencyInput.value = state.currency || 'USD';
+    periodTypeInput.value = state.periodType || 'week';
+    applyPeriodLabels(state.periodType || 'week');
+    var periodWord = (state.periodType === 'month') ? 'Month' : 'Wk';
+    var periodWordFull = (state.periodType === 'month') ? 'Month' : 'Week';
+
+    grid.innerHTML='';
+    var checkedCount=0, overdueCount=0, today=new Date(); today.setHours(0,0,0,0);
+    var weekComplete = [];
+    for(var w=1; w<=state.weeks; w++){
+      var wDate = weekDate(w);
+      var allDone = true;
+      for(var e=1; e<=state.perWeek; e++){
+        var key = w+'-'+e;
+        var isDone = !!state.checked[key];
+        if(!isDone) allDone = false;
+        if(isDone) checkedCount++;
+        var isOverdue = wDate && !isDone && wDate < today;
+        if(isOverdue) overdueCount++;
+        var hasNote = !!state.notes[key];
+        var card = document.createElement('div');
+        card.className = 'envelope' + (isDone?' done':'') + (isOverdue?' overdue':'');
+        card.setAttribute('role','button'); card.setAttribute('tabindex','0');
+        card.setAttribute('aria-pressed', isDone?'true':'false');
+        var label = state.perWeek>1 ? (periodWord+' '+w+' · '+e) : (periodWordFull+' '+w);
+        var dateHtml = wDate ? '<div class="env-date">'+fmtDate(wDate)+'</div>' : '';
+        card.innerHTML =
+          '<button class="note-btn'+(hasNote?' has-note':'')+'" data-key="'+key+'" title="Add note" type="button">✎</button>'+
+          '<span class="check">✓</span>'+
+          '<div class="env-week">'+label+'</div>'+dateHtml+
+          '<div class="env-amt">'+fmt(envAmt)+'</div>';
+        (function(k, el){
+          function toggle(){ state.checked[k] = !state.checked[k]; saveState(); render(); }
+          el.addEventListener('click', function(ev){
+            if(ev.target.closest('.note-btn')) return;
+            toggle();
+          });
+          el.addEventListener('keydown', function(ev){ if(ev.key==='Enter'||ev.key===' '){ ev.preventDefault(); toggle(); } });
+        })(key, card);
+        grid.appendChild(card);
+      }
+      weekComplete.push(allDone);
+    }
+
+    grid.querySelectorAll('.note-btn').forEach(function(btn){
+      btn.addEventListener('click', function(ev){
+        ev.stopPropagation();
+        var k = btn.getAttribute('data-key');
+        var current = state.notes[k] || '';
+        var val = window.prompt('Note for this envelope:', current);
+        if(val !== null){
+          if(val.trim()===''){ delete state.notes[k]; } else { state.notes[k] = val.trim(); }
+          saveState(); render();
+        }
+      });
+    });
+
+    var saved = checkedCount*envAmt;
+    var pct = state.goal>0 ? Math.min(100,(saved/state.goal)*100) : 0;
+    savedAmt.textContent=fmt(saved); weeklyAmt.textContent=fmt(weeklyTarget);
+    envAmtStat.textContent=fmt(envAmt); remainingAmt.textContent=fmt(Math.max(0,state.goal-saved));
+    overdueStat.textContent=overdueCount;
+    barFill.style.width=pct+'%';
+
+    var milestones=[25,50,75,100];
+    badgesEl.innerHTML = milestones.map(function(m){
+      return '<span class="badge'+(pct>=m?' hit':'')+'">'+m+'%</span>';
+    }).join('');
+
+    var streak=0;
+    for(var i=0;i<weekComplete.length;i++){ if(weekComplete[i]) streak++; else break; }
+    streakLine.textContent = streak>0 ? ('🔥 '+streak+' '+periodWordFull.toLowerCase()+(streak>1?'s':'')+' fully saved in a row') : ('Check off a full '+periodWordFull.toLowerCase()+' to start a streak.');
+
+    if(pct>=100 && !state.celebrated){
+      state.celebrated=true; saveState(); launchConfetti();
+    } else if(pct<100 && state.celebrated){
+      state.celebrated=false; saveState();
+    }
+  }
+
+  setGoalBtn.addEventListener('click', function(){
+    var g=parseFloat(goalInput.value), w=parseInt(weeksInput.value,10), p=parseInt(perWeekInput.value,10);
+    if(!g||g<=0||!w||w<=0||!p||p<=0){ errEl.style.display='block'; return; }
+    errEl.style.display='none';
+    var changed = (state.weeks!==w)||(state.perWeek!==p)||(state.periodType!==periodTypeInput.value);
+    state.goal=g; state.weeks=w; state.perWeek=p; state.startDate=startDateInput.value||''; state.currency=currencyInput.value||'USD';
+    state.periodType = periodTypeInput.value || 'week';
+    if(changed){ state.checked={}; state.notes={}; state.celebrated=false; }
+    saveState(); render();
+  });
+
+  resetBtn.addEventListener('click', function(){
+    state.checked={}; state.notes={}; state.celebrated=false; saveState(); render();
+  });
+
+  exportBtn.addEventListener('click', function(){
+    var data = JSON.stringify(state, null, 2);
+    (async function(){
+      try{
+        var downloads = await claude.use('downloads');
+        if(downloads){
+          await downloads.save({ filename:'savings-tracker.json', data: data });
+          return;
+        }
+      }catch(e){}
+      // fallback: open data in a new tab for manual copy/save
+      var w2 = window.open('', '_blank');
+      if(w2){ w2.document.write('<pre>'+data.replace(/</g,'&lt;')+'</pre>'); }
+    })();
+  });
+
+  importBtn.addEventListener('click', function(){ importInput.click(); });
+  importInput.addEventListener('change', function(){
+    var file = importInput.files[0];
+    if(!file) return;
+    var reader = new FileReader();
+    reader.onload = function(){
+      try{
+        var parsed = JSON.parse(reader.result);
+        if(parsed && typeof parsed==='object'){
+          state = Object.assign({goal:null,weeks:null,perWeek:null,checked:{},notes:{},startDate:'',currency:'USD',periodType:'week',celebrated:false}, parsed);
+          saveState(); render();
+        }
+      }catch(e){ window.alert('That file could not be read as a saved tracker.'); }
+      importInput.value='';
+    };
+    reader.readAsText(file);
+  });
+
+  loadState();
+  if(!state.goal || !state.weeks || !state.perWeek){
+    state.goal=7500; state.weeks=50; state.perWeek=2; saveState();
+  }
+  render();
+
+  // PWA support: service worker registration (manifest is now static in <head>).
+  (function setupPWA(){
+    try{
+      if('serviceWorker' in navigator){
+        var swCode = "self.addEventListener('fetch', function(e){});"; // minimal: enables installability
+        var swBlob = new Blob([swCode], { type: 'application/javascript' });
+        navigator.serviceWorker.register(URL.createObjectURL(swBlob)).catch(function(){});
+      }
+    }catch(e){ /* PWA install features unavailable here; page still works normally */ }
+  })();
+})();
+</script>
+</body>
+</html>
